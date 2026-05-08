@@ -17,6 +17,19 @@ app.add_middleware(
     max_age=28800
 )
 
+from fastapi import HTTPException
+from fastapi.responses import RedirectResponse as RR
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    if exc.status_code == 307 and "Location" in exc.headers:
+        return RR(url=exc.headers["Location"])
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail}
+    )
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")

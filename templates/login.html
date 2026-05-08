@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QualityIQ — Sign In</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #0F1B2D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+    }
+    h1 { color: #1E293B; margin-bottom: 8px; }
+    p  { color: #64748B; margin-bottom: 28px; }
+    .btn {
+      display: inline-block;
+      background: #0D9488;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .btn:hover { background: #0F766E; }
+    .error {
+      background: #FEE2E2;
+      color: #991B1B;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>QualityIQ</h1>
+    <p>Operations Quality Portal</p>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <a href="/auth/google" class="btn">Sign in with Google</a>
+  </div>
+</body>
+</html>

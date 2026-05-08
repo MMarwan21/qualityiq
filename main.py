@@ -5,6 +5,8 @@ from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 import os
 
+from starlette.responses import RedirectResponse
+
 load_dotenv()
 
 app = FastAPI(title="QualityIQ")
@@ -18,6 +20,16 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
+
+from routes.auth import router as auth_router
+app.include_router(auth_router)
+
+@app.get("/")
+async def home(request: Request):
+    if request.session.get("user"):
+        return RedirectResponse(url="/dashboard")
+    return RedirectResponse(url="/login")
+
 
 @app.get("/")
 async def home(request: Request):
